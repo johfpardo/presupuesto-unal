@@ -35,33 +35,20 @@ import java.util.List;
 public class PDFReport {
 
     ControlSistema controls = new ControlSistema();
-    String np="";
-    
+    String np = "";
+
     public static void main(String[] args) throws IOException, DocumentException {
-        //inicializar();
         new PDFReport();
-    }
-    
-    private static void inicializar() {
-        Sistema.msistema.setPresupuesto(new ArrayList<Presupuesto>());
-        ControlSistema controls = new ControlSistema();
-        String datos[] = {"Primero", "20000000"};
-        controls.crearPresupuesto(datos);
-        String[] datosr = {"Computadores", "10000000"};
-        controls.crearRubro(datosr, "Primero");
-        datosr[0] = "Viajes";
-        datosr[1] = "8540000";
-        controls.crearRubro(datosr, "Primero");
     }
 
     public PDFReport() throws IOException, DocumentException {
-        
+
         createPdf();
     }
-    
+
     public PDFReport(String nombrepresupuesto) throws IOException, DocumentException {
-        
-        np=nombrepresupuesto;
+
+        np = nombrepresupuesto;
         createPdf();
     }
 
@@ -92,37 +79,43 @@ public class PDFReport {
         PdfPTable table = new PdfPTable(7);
         PdfPCell cell;
         Object[] presupuesto = controls.getPresupuesto(np);
-        List<Object[]> rubros=controls.getRubro(np);
-        cell = new PdfPCell(new Phrase("Descripción"));
+        List<Object[]> rubros = controls.getRubro(np);
+        Font font = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE);
+        cell = new PdfPCell(new Phrase("Descripción", font));
         cell.setColspan(2);
         cell.setRowspan(2);
+        cell.setBackgroundColor(BaseColor.BLACK);
         table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Presupuesto Aprobado"));
+        cell = new PdfPCell(new Phrase("Presupuesto Aprobado", font));
         cell.setRowspan(2);
+        cell.setBackgroundColor(BaseColor.BLACK);
         table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Presupuesto Ejecutado"));
+        cell = new PdfPCell(new Phrase("Presupuesto Ejecutado", font));
         cell.setRowspan(2);
+        cell.setBackgroundColor(BaseColor.BLACK);
         table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Presupuesto por Ejecutar"));
+        cell = new PdfPCell(new Phrase("Presupuesto por Ejecutar", font));
         cell.setRowspan(2);
+        cell.setBackgroundColor(BaseColor.BLACK);
         table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Porcentaje Ejecutado"));
+        cell = new PdfPCell(new Phrase("Porcentaje Ejecutado", font));
         cell.setRowspan(2);
+        cell.setBackgroundColor(BaseColor.BLACK);
         table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Porcentaje por Ejecutar"));
+        cell = new PdfPCell(new Phrase("Porcentaje por Ejecutar", font));
         cell.setRowspan(2);
+        cell.setBackgroundColor(BaseColor.BLACK);
         table.addCell(cell);
-        
         DecimalFormat df = new DecimalFormat("$ #,##0.#");
         for (Object[] r : rubros) {
-            cell = new PdfPCell(new Phrase(""+r[0]));
+            cell = new PdfPCell(new Phrase("" + r[0]));
             cell.setColspan(2);
             table.addCell(cell);
             table.addCell(df.format(r[2]));
             table.addCell(df.format(r[3]));
             table.addCell(df.format(r[4]));
-            table.addCell((float)r[3]*100/(float)r[2] +"%");
-            table.addCell(100 -(float)r[3]*100/(float)r[2] +"%");
+            table.addCell((float) r[3] * 100 / (float) r[2] + "%");
+            table.addCell(100 - (float) r[3] * 100 / (float) r[2] + "%");
         }
         cell = new PdfPCell(new Phrase("Total Gastos"));
         cell.setColspan(2);
@@ -131,8 +124,8 @@ public class PDFReport {
             table.addCell(df.format(presupuesto[2]));
             table.addCell(df.format(presupuesto[5]));
             table.addCell(df.format(presupuesto[6]));
-            table.addCell((float)presupuesto[5]* 100/(float)presupuesto[6] +"%");
-            table.addCell(100 - (float)presupuesto[5]* 100/(float)presupuesto[6] +"%");
+            table.addCell((float) presupuesto[5] * 100 / (float) presupuesto[6] + "%");
+            table.addCell(100 - (float) presupuesto[5] * 100 / (float) presupuesto[6] + "%");
         }
         return table;
     }

@@ -40,7 +40,7 @@ public class PrincipalJF extends javax.swing.JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.CremeSkin");
         initComponents();
-        //iniciarSistema();
+        iniciarSistema();
         inicializar();
     }
 
