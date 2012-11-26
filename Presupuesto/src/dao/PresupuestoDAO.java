@@ -31,7 +31,7 @@ public class PresupuestoDAO{
         em.getTransaction().begin();
         boolean ret = false;
         try {
-            em.remove(object);
+            em.remove(em.merge(object));
             em.getTransaction().commit();
             ret = true;
         } catch (Exception e) {
