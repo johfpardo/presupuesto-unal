@@ -15,7 +15,7 @@ import java.util.List;
 public class ControlItem {
 
     private ItemDAO dao = new ItemDAO();
-    
+
     // <editor-fold defaultstate="collapsed" desc=" UML Marker ">
     // #[regen=yes,id=DCE.829222B1-BE95-9AA1-A6EF-691BBFBDCF06]
     // </editor-fold>
@@ -26,8 +26,8 @@ public class ControlItem {
     // #[regen=yes,regenBody=yes,id=DCE.EE6B25AE-BC3C-7630-058D-59A6F7BF8020]
     // </editor-fold>
     public String editarItem(long idItem, Rubro rubro, String nuevoNombre, float nuevoPresupuestoAprobado) {
-        
-        Item item = this.getItem(idItem);        
+
+        Item item = this.getItem(idItem);
         if (item == null) {
             return "Edición fallida";
         } else {
@@ -58,11 +58,11 @@ public class ControlItem {
     // <editor-fold defaultstate="collapsed" desc=" UML Marker ">
     // #[regen=yes,id=DCE.33DCB916-7077-7EB5-CAF8-5420745ADDE7]
     // </editor-fold>
-    public Item getItem(String nombrePresupuesto,String nombreRubro, String nombreItem){
-    
+    public Item getItem(String nombrePresupuesto, String nombreRubro, String nombreItem) {
+
         return dao.leer(nombrePresupuesto, nombreRubro, nombreItem);
     }
-    
+
     public Item getItem(long idItem) {
         //Se busca el item requerido, si no lo encuentra retorna null
         return dao.leer(idItem);
@@ -150,17 +150,17 @@ public class ControlItem {
     public String eliminarItem(long idItem) {
         //Se le manda al rubro el id del item que debe borrar
         Item item = dao.leer(idItem);
-        Rubro rubro = item.getRubro();
-        Presupuesto presupuesto = rubro.getPresupuesto();
-            if (item != null) {
-                rubro.actualizarPresupuestoEjecutado(-item.getDineroEjecutado());
-                presupuesto.actualizarPresupuestoEjecutado(-item.getDineroEjecutado());
-                //Se actualiza todo el sistema despues de la accion 
-                dao.eliminar(item);
-                new RubroDAO().actualizar(rubro);
-                new PresupuestoDAO().actualizar(presupuesto);
-                return "Item eliminado satisfactoriamente";
-            }
+        if (item != null) {
+            Rubro rubro = item.getRubro();
+            Presupuesto presupuesto = rubro.getPresupuesto();
+            rubro.actualizarPresupuestoEjecutado(-item.getDineroEjecutado());
+            presupuesto.actualizarPresupuestoEjecutado(-item.getDineroEjecutado());
+            //Se actualiza todo el sistema despues de la accion 
+            dao.eliminar(item);
+            new RubroDAO().actualizar(rubro);
+            new PresupuestoDAO().actualizar(presupuesto);
+            return "Item eliminado satisfactoriamente";
+        }
         return "Item inexistente, eliminacion no satisfactoria";
     }
 

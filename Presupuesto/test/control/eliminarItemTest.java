@@ -22,21 +22,16 @@ import static org.junit.Assert.*;
  */
 public class eliminarItemTest {
 
-    private static ControlSistema controlS = new ControlSistema();
-    private ControlItem cItem = new ControlItem();
+    private static ControlSistema csistema = new ControlSistema();
 
     public eliminarItemTest() {
     }
 
     @BeforeClass
     public static void setUpClass() {
-        Sistema.msistema.setPresupuesto(new ArrayList<Presupuesto>());
-        //creando una planeacion en el sistema
-        controlS.crearPresupuesto(new String[]{"Plan1", "1000000"});
-        //creando rubros en el sistema
-        controlS.crearRubro(new String[]{"Estimulo a Estudiantes Auxiliares", "300000"}, "Plan1");
-        //Creando Items en el sistema
-        controlS.crearItem(new String[]{"Premio por desempeño", "100000", "25-12-2012"}, "Plan1", "Estimulo a Estudiantes Auxiliares");
+        csistema.crearPresupuesto(new String[]{"planeacion de prueba", "50000"});
+        csistema.crearRubro(new String[]{"abcde", "10000"}, "planeacion de prueba");
+        csistema.crearItem(new String[]{"item de prueba", "1500", "25-11-2012"}, "planeacion de prueba", "abcde");
     }
 
     @AfterClass
@@ -57,40 +52,20 @@ public class eliminarItemTest {
     @Test
     public void eliminacionFallidaTest() {
 
-        Rubro r = new Rubro();
-        ArrayList<Item> items = new ArrayList<Item>();
-        r.setNombreRubro("Conferencias");
-        r.setId(1);
-        Item i = new Item();
-        i.setNombreItem("Viaje Ricardo a España");
-        i.setId(1);
-        items.add(i);
-        r.setNombreRubro("Conferencias");
-        r.setId(1);
-        r.setItems(items);
+        assertEquals(csistema.eliminarItem(-2), "Item inexistente, eliminacion no satisfactoria");
 
-        assertEquals(cItem.eliminarItem(2), "Item inexistente, eliminacion no satisfactoria");
-        //Con un id inexistente se prueba el procedimiento
-        // assert(controlS.eliminarItem("Plan1",0,3).equals("Item inexistente, eliminacion no satisfactoria")); 
     }
 
     @Test
     public void eliminacionSatisfactoriaTest() {
 
-        Rubro r = new Rubro();
-        ArrayList<Item> items = new ArrayList<Item>();
-        r.setNombreRubro("Conferencias");
-        r.setId(1);
-        Item i = new Item();
-        i.setNombreItem("Viaje Ricardo a España");
-        i.setId(1);
-        items.add(i);
-        r.setNombreRubro("Conferencias");
-        r.setId(1);
-        r.setItems(items);
+        Object[] item = csistema.getItem("planeacion de prueba", "abcde", "item de prueba");
+        long iD = (long) item[3];
 
-        assertEquals(cItem.eliminarItem(2), "Item eliminado satisfactoriamente");
-        //Se elimina un item existente
+        //Se eliminan dos items existentes
+        assertEquals(csistema.eliminarItem(iD), "Item eliminado satisfactoriamente");
+
+
 
     }
 }
