@@ -56,6 +56,7 @@ public class ControlRubro {
             rubro.setFechaModificacion(new Date());
             rubro.setNombreRubro(nuevoNombre);
             rubro.setPresupuestoAprobado(nuevoPresupuestoAprobado);
+            dao.actualizar(rubro);
             return "Rubro editado satisfactoriamente";
         }
         return "Edición fallida";
@@ -107,6 +108,7 @@ public class ControlRubro {
         if (rubro != null) {
             presupuesto.actualizarPresupuestoComprometido(-rubro.getPresupuestoAprobado());
             presupuesto.actualizarPresupuestoEjecutado(-rubro.getPresupuestoEjecutado());
+            new PresupuestoDAO().actualizar(presupuesto);
             dao.eliminar(rubro);
             return "Rubro eliminado satisfactoriamente";
         }
