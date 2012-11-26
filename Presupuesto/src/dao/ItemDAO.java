@@ -77,8 +77,8 @@ public class ItemDAO {
         Item item = null;
         Query q = em.createQuery("SELECT i from Item i " +
                 "WHERE i.nombreItem LIKE :nombreItem" +
-                " AND i.getRubro().getNombreRubro() LIKE :nombreRubro" +
-                " AND i.getRubro().getPresupuesto().getNombrePlaneacion LIKE :nombrePresupuesto")
+                " AND i.rubro.nombreRubro LIKE :nombreRubro" +
+                " AND i.rubro.presupuesto.nombrePlaneacion LIKE :nombrePresupuesto")
                 .setParameter("nombreItem", nombreItem)
                 .setParameter("nombreRubro", nombreRubro)
                 .setParameter("nombrePresupuesto", nombrePresupuesto);
