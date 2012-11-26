@@ -79,7 +79,7 @@ public class ControlSistema {
     // </editor-fold> 
     public String crearPresupuesto(String[] datos) {
         try {
-            return mControlPresupuesto.crearPresupuesto(new Presupuesto(datos[0],Float.parseFloat(datos[1])));
+            return mControlPresupuesto.crearPresupuesto(new Presupuesto(datos[0], Float.parseFloat(datos[1])));
         } catch (Exception e) {
             return "Datos Invalidos";
         }
@@ -88,18 +88,20 @@ public class ControlSistema {
     public Object[] getPresupuesto(String nombre) {
         //retorna el presupuesto correspondiente al nombre dado
         Presupuesto p = mControlPresupuesto.getPresupuesto(nombre);
+        if (p == null) {
+            return null;
+        }
         Object[] o = {p.getNombrePlaneacion(), p.getFechaPlaneacion(), p.getPresupuestoAprobado(),
-                p.getPresupuestoComprometido(), p.getPresupuestoAprobado() - p.getPresupuestoComprometido(),
-                p.getPresupuestoEjecutado(), p.getPresupuestoAprobado() - p.getPresupuestoEjecutado()};
+            p.getPresupuestoComprometido(), p.getPresupuestoAprobado() - p.getPresupuestoComprometido(),
+            p.getPresupuestoEjecutado(), p.getPresupuestoAprobado() - p.getPresupuestoEjecutado()};
         return o;
     }
-    
+
     public List<Object[]> getPresupuesto() {
         //retorna el presupuesto correspondiente al nombre dado
         List<Presupuesto> planeaciones = mControlPresupuesto.getPresupuesto();
         List<Object[]> lista = new ArrayList<>();
-        for(Presupuesto p : planeaciones)
-        {
+        for (Presupuesto p : planeaciones) {
             Object[] o = {p.getNombrePlaneacion(), p.getFechaPlaneacion(), p.getPresupuestoAprobado(),
                 p.getPresupuestoComprometido(), p.getPresupuestoAprobado() - p.getPresupuestoComprometido(),
                 p.getPresupuestoEjecutado(), p.getPresupuestoAprobado() - p.getPresupuestoEjecutado()};
@@ -109,22 +111,25 @@ public class ControlSistema {
     }
 
     public Object[] getItem(String nombrePresupuesto, String nombreRubro, String nombreItem) {
-        
-        Item i = mControlItem.getItem(nombrePresupuesto,nombreRubro, nombreItem); 
-        if(i!=null){
-            Object[] o = {i.getNombreItem(),i.getFecha(),i.getDineroEjecutado(),i.getId()};
-            return o;}
+
+        Item i = mControlItem.getItem(nombrePresupuesto, nombreRubro, nombreItem);
+        if (i != null) {
+            Object[] o = {i.getNombreItem(), i.getFecha(), i.getDineroEjecutado(), i.getId()};
+            return o;
+        }
         return null;
     }
 
     public String editarItem(String nombrePresupuesto, String nombreRubro, long idItem, String[] datos) {
         //variables auxiliares
         Presupuesto p;
-        Rubro r;
+        Rubro r = null;
         float t = -120;
 
         p = mControlPresupuesto.getPresupuesto(nombrePresupuesto);//se identifica la planeación
-        r = mControlRubro.getRubro(p.getNombrePlaneacion(), nombreRubro); //se identifica el rubro
+        if (p != null) {
+            r = mControlRubro.getRubro(p.getNombrePlaneacion(), nombreRubro); //se identifica el rubro
+        }
         try {
             t = Float.parseFloat(datos[1]);
         } catch (NumberFormatException e) {
@@ -133,8 +138,11 @@ public class ControlSistema {
     }
 
     public Object[] getRubro(String nombrePresupuesto, String nombreRubro) {
-        //variables auxiliares
-        return mControlRubro.getRubro(nombrePresupuesto, nombreRubro).toObjectArray();
+        Rubro r = mControlRubro.getRubro(nombrePresupuesto, nombreRubro);
+        if (r == null) {
+            return null;
+        }
+        return r.toObjectArray();
     }
 
     public String editarRubro(String nombrePresupuesto, String nombreRubro, String[] datos) {
@@ -148,18 +156,18 @@ public class ControlSistema {
     }
 
     public String crearRubro(String[] datos, String nombrePresupuesto) {
-        return mControlRubro.agregarRubro(nombrePresupuesto, datos);  
+        return mControlRubro.agregarRubro(nombrePresupuesto, datos);
     }
 
     public String crearItem(String[] datos, String nombrePlaneacion, String nombreRubro) {
         //variables auxiliares
         Rubro r;
-        r = mControlRubro.getRubro(nombrePlaneacion,nombreRubro); //se identifica el item
+        r = mControlRubro.getRubro(nombrePlaneacion, nombreRubro); //se identifica el item
         return mControlItem.agregarItem(new Item(datos), r); //se crea el item
     }
 
     public String eliminarItem(long idItem) {
-        
+
         return mControlItem.eliminarItem(idItem);  //se elimina el item
     }
 
@@ -173,8 +181,8 @@ public class ControlSistema {
     }
 
     public List<Object[]> getRubro(String nombrePresupuesto) {
-        ArrayList<Object[]> a=new ArrayList<Object[]>();
-        for(Rubro r:mControlRubro.getRubros(nombrePresupuesto)){
+        ArrayList<Object[]> a = new ArrayList<Object[]>();
+        for (Rubro r : mControlRubro.getRubros(nombrePresupuesto)) {
             a.add(r.toObjectArray());
         }
         return a;
@@ -183,12 +191,11 @@ public class ControlSistema {
     public List<Object[]> getItem(String presupuestoSeleccionado, String rubroSeleccionado) {
         //variables auxiliares
         Rubro r;
-        r = mControlRubro.getRubro(presupuestoSeleccionado,rubroSeleccionado); //se identifica el rubro
+        r = mControlRubro.getRubro(presupuestoSeleccionado, rubroSeleccionado); //se identifica el rubro
         List<Item> items = mControlItem.getItems(r);
         List<Object[]> lista = new ArrayList<>();
-        for(Item i : items)
-        {
-            Object[] o = {i.getNombreItem(),i.getFecha(),i.getDineroEjecutado()};
+        for (Item i : items) {
+            Object[] o = {i.getNombreItem(), i.getFecha(), i.getDineroEjecutado()};
             lista.add(o);
         }
         return lista;

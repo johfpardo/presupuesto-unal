@@ -102,7 +102,10 @@ public class RubroDAO{
     }
     
     public Rubro leer(String nombreRubro,String nombrePresupuesto) {
-        return leer(nombreRubro,new PresupuestoDAO().leer(nombrePresupuesto).getId());
+        Presupuesto p=new PresupuestoDAO().leer(nombrePresupuesto);
+        if(p!=null){
+        return leer(nombreRubro,p.getId());}
+        return null;
     }
     
     public Rubro leer(long idRubro) {

@@ -94,6 +94,9 @@ public class ControlRubro {
 
     public boolean verificarDisponibilidadFuente(Rubro fuente, float monto) {
         //Verifica si el rubro fuente tiene fondos suficientes
+        if (fuente == null) {
+            return false;
+        }
         if (fuente.getPresupuestoAprobado() < fuente.getPresupuestoEjecutado() + monto) {
             //Si no tiene retorna falso
             return false;
@@ -104,7 +107,7 @@ public class ControlRubro {
 
     public String eliminarRubro(String nombrePresupuesto, String nombreRubro) {
         Presupuesto presupuesto = new PresupuestoDAO().leer(nombrePresupuesto);
-if (presupuesto != null) {
+        if (presupuesto != null) {
             Rubro rubro = dao.leer(nombreRubro, presupuesto.getId());
             if (rubro != null) {
                 presupuesto.actualizarPresupuestoComprometido(-rubro.getPresupuestoAprobado());
