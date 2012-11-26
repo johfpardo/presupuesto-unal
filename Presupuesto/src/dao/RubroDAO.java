@@ -57,6 +57,29 @@ public class RubroDAO{
         }
     }
     
+    public boolean eliminar(String p,String r) {
+        
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        boolean ret=false;
+        try {
+            ItemDAO itemDao=new ItemDAO();
+            Rubro object=leer(p,r);
+            List<Item> items=itemDao.leerDeRubro(object.getId());
+            for(Item i:items)
+                itemDao.eliminar(i);
+            em.remove(object);
+            em.getTransaction().commit();
+            ret=true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            return ret;
+        }
+    }
+    
     public Rubro leer(String nombreRubro,long idPresupuesto) {
         
         EntityManager em = emf.createEntityManager();

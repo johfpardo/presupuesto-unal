@@ -132,9 +132,9 @@ public class ControlSistema {
         return mControlItem.editarItem(idItem, r, datos[0], t);   //se cambia el estado de Item
     }
 
-    public Rubro getRubro(String nombrePresupuesto, String nombreRubro) {
+    public Object[] getRubro(String nombrePresupuesto, String nombreRubro) {
         //variables auxiliares
-        return mControlRubro.getRubro(nombrePresupuesto, nombreRubro);
+        return mControlRubro.getRubro(nombrePresupuesto, nombreRubro).toObjectArray();
     }
 
     public String editarRubro(String nombrePresupuesto, String nombreRubro, String[] datos) {

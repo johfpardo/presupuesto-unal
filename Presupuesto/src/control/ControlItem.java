@@ -154,7 +154,6 @@ public class ControlItem {
         Presupuesto presupuesto = rubro.getPresupuesto();
             if (item != null) {
                 rubro.actualizarPresupuestoEjecutado(-item.getDineroEjecutado());
-                rubro.getItems().remove(item);
                 presupuesto.actualizarPresupuestoEjecutado(-item.getDineroEjecutado());
                 //Se actualiza todo el sistema despues de la accion 
                 dao.eliminar(item);

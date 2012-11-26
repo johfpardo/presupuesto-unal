@@ -39,7 +39,7 @@ public class ItemDAO {
         em.getTransaction().begin();
         boolean ret = false;
         try {
-            em.remove(object);
+            em.remove(em.merge(object));
             em.getTransaction().commit();
             ret = true;
         } catch (Exception e) {
@@ -56,7 +56,7 @@ public class ItemDAO {
         EntityManager em = emf.createEntityManager();
         Item item = null;
         Query q = em.createQuery("SELECT i from Item i " +
-                "WHERE i.id LIKE :id")
+                "WHERE i.id = :id")
                 .setParameter("id", idItem);
         try {
             item = (Item) q.getSingleResult();
