@@ -128,6 +128,7 @@ public class NuevoItem extends javax.swing.JDialog {
     private void CancelarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarBotonActionPerformed
         this.nombreTexto.setText("");
         this.recursosTexto.setText("");
+        this.FechaText.setText("");
         this.dispose();
     }//GEN-LAST:event_CancelarBotonActionPerformed
 
