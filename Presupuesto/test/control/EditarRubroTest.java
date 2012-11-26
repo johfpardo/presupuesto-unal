@@ -26,7 +26,6 @@ public class EditarRubroTest {
     @BeforeClass
     public static void setUpClass() {
         
-        Sistema.msistema.setPresupuesto(new ArrayList<Presupuesto>());
         csistema.crearPresupuesto(new String[] {"planeacion de prueba","50000"});  
         csistema.crearRubro(new String[] {"abcde","10000"}, "planeacion de prueba");
         csistema.crearItem(new String[]{"item de prueba","1500","25-11-2012"}, "planeacion de prueba", "abcde");
