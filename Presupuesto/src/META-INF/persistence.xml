@@ -11,6 +11,7 @@
       <property name="hibernate.connection.password" value="admin"/>
       <property name="hibernate.connection.url" value="jdbc:derby://localhost:1527/Presupuesto"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
   </persistence-unit>
 </persistence>

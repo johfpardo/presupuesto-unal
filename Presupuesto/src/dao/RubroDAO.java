@@ -45,7 +45,7 @@ public class RubroDAO{
             List<Item> items=itemDao.leerDeRubro(object.getId());
             for(Item i:items)
                 itemDao.eliminar(i);
-            em.remove(object);
+            em.remove(em.merge(object));
             em.getTransaction().commit();
             ret=true;
         } catch (Exception e) {
