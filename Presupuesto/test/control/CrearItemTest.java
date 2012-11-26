@@ -67,9 +67,9 @@ public class CrearItemTest {
      public void ValidezDineroTest(){
          
         String datos[] = {"Evento Colombia 3.0","-1000","01-12-2012"};
-        assert(controlS.crearItem(datos,"Plan1","Materiales y Suministros").equals("Monto de dinero no valido"));
+        assertEquals(controlS.crearItem(datos,"Plan1","Materiales y Suministros"),"Monto de dinero no valido");
         String datos1[] = {"Ing Hernandez a Costa Rica","500001","01-12-2012"};
-        assert(controlS.crearItem(datos1,"Plan1","Materiales y Suministros").equals("Monto de dinero no valido"));
+        assertEquals(controlS.crearItem(datos1,"Plan1","Materiales y Suministros"),"Monto de dinero no valido");
                  
       }
      
@@ -77,7 +77,7 @@ public class CrearItemTest {
      public void noRepetidoTest(){
         // Prueba de que no haya otro Item con el mismo nombre
         String datos[] = {"Viaje Ricardo a España","50000","25-11-2012"};
-        assert(controlS.crearItem(datos,"Plan1","Viaticos y Gastos de Viaje").equals("Nombre ya existente"));
+        assertEquals(controlS.crearItem(datos,"Plan1","Viaticos y Gastos de Viaje"),"Nombre ya existente");
         
      }
      
@@ -85,6 +85,6 @@ public class CrearItemTest {
      public void ItemCreado(){
          
         String datos[] = {"Viaje Carlos a Italia","50000","25-11-2012"};
-        assert(controlS.crearItem(datos,"Plan1","Viaticos y Gastos de Viaje").equals("Item creado Satisfactoriamente")); 
+        assertEquals(controlS.crearItem(datos,"Plan1","Viaticos y Gastos de Viaje"),"Item creado Satisfactoriamente"); 
      }
 }

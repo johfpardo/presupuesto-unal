@@ -25,8 +25,7 @@ public class CrearRubroTest {
     static ControlSistema csistema=new ControlSistema();
     @BeforeClass
     public static void setUpClass() {
-        Sistema.msistema.setPresupuesto(new ArrayList<Presupuesto>());
-        csistema.crearPresupuesto(new String[] {"planeacion de prueba","50000"});        
+        csistema.crearPresupuesto(new String[] {"planeacion de prueba","500000"});        
     }
     
     @AfterClass
@@ -67,7 +66,7 @@ public class CrearRubroTest {
         String datos[]={"abcde","-100"};
         String r1=csistema.crearRubro(datos, "planeacion de prueba");
         assertEquals(r1,"Monto de dinero inválido");
-        String datos1[]={"abcde","50001"};
+        String datos1[]={"abcde","500001"};
         String r2=csistema.crearRubro(datos1, "planeacion de prueba");
         assertEquals(r2,"Monto de dinero inválido");
     }

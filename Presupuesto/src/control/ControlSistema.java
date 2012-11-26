@@ -110,9 +110,11 @@ public class ControlSistema {
 
     public Object[] getItem(String nombrePresupuesto, String nombreRubro, String nombreItem) {
         
-        Item i = mControlItem.getItem(nombrePresupuesto,nombreRubro, nombreItem); //se retorna el item solicitado
-        Object[] o = {i.getNombreItem(),i.getFecha(),i.getDineroEjecutado(),i.getId()};
-        return o;
+        Item i = mControlItem.getItem(nombrePresupuesto,nombreRubro, nombreItem); 
+        if(i!=null){
+            Object[] o = {i.getNombreItem(),i.getFecha(),i.getDineroEjecutado(),i.getId()};
+            return o;}
+        return null;
     }
 
     public String editarItem(String nombrePresupuesto, String nombreRubro, long idItem, String[] datos) {

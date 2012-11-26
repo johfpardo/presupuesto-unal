@@ -31,7 +31,7 @@ public class ControlRubro {
 
         return dao.leerDePresupuesto(idPresupuesto);
     }
-    
+
     public List<Rubro> getRubros(String nombrePresupuesto) {
 
         return dao.leerDePresupuesto(nombrePresupuesto);
@@ -70,7 +70,7 @@ public class ControlRubro {
     }
 
     public boolean verificarValidezDinero(float dinero, String nombrePresupuesto) {
-        Presupuesto p=new PresupuestoDAO().leer(nombrePresupuesto);
+        Presupuesto p = new PresupuestoDAO().leer(nombrePresupuesto);
         if (p.getPresupuestoAprobado() - p.getPresupuestoComprometido() - dinero < 0) {
             return false;
         }
@@ -103,12 +103,14 @@ public class ControlRubro {
 
     public String eliminarRubro(String nombrePresupuesto, String nombreRubro) {
         Presupuesto presupuesto = new PresupuestoDAO().leer(nombrePresupuesto);
-        Rubro rubro = dao.leer(nombreRubro, presupuesto.getId());
-        if (rubro != null) {
-            presupuesto.actualizarPresupuestoComprometido(-rubro.getPresupuestoAprobado());
-            presupuesto.actualizarPresupuestoEjecutado(-rubro.getPresupuestoEjecutado());
-            dao.eliminar(rubro);
-            return "Rubro eliminado satisfactoriamente";
+        if (presupuesto != null) {
+            Rubro rubro = dao.leer(nombreRubro, presupuesto.getId());
+            if (rubro != null) {
+                presupuesto.actualizarPresupuestoComprometido(-rubro.getPresupuestoAprobado());
+                presupuesto.actualizarPresupuestoEjecutado(-rubro.getPresupuestoEjecutado());
+                dao.eliminar(rubro);
+                return "Rubro eliminado satisfactoriamente";
+            }
         }
         return "Eliminacion fallida";
     }
@@ -120,11 +122,10 @@ public class ControlRubro {
         if (nombreRepetido(datos[0], nombrePresupuesto)) {
             return "Nombre ya asignado";
         }
-        float presupuestoAprobado=-120;
+        float presupuestoAprobado = -120;
         try {
             presupuestoAprobado = Float.parseFloat(datos[1]);
         } catch (NumberFormatException t) {
-            
         }
         if (presupuestoAprobado < 0 || !verificarValidezDinero(presupuestoAprobado, nombrePresupuesto)) {
             return "Monto de dinero inválido";
@@ -132,7 +133,7 @@ public class ControlRubro {
         Presupuesto p = new PresupuestoDAO().leer(nombrePresupuesto);
         p.actualizarPresupuestoComprometido(presupuestoAprobado);
         new PresupuestoDAO().actualizar(p);
-        Rubro nuevo=new Rubro(datos[0],presupuestoAprobado);
+        Rubro nuevo = new Rubro(datos[0], presupuestoAprobado);
         nuevo.setPresupuesto(new PresupuestoDAO().leer(nombrePresupuesto));
         new RubroDAO().crear(nuevo);
         return "Rubro agregado satisfactoriamente";
