@@ -48,12 +48,12 @@ public class VerPlaneacionTest {
     @Test
     public void verPlaneacion() {
         // Prueba presupuesto no existente
-        Presupuesto p = controlS.getPresupuesto("planeacion 2012");
+        Object[] p = controlS.getPresupuesto("planeacion 2012");
         assert(p==null);
         // Prueba presupuesto existente
         p = controlS.getPresupuesto("Plan1");
         String s = "";
-        if(p.getPresupuestoAprobado()==100000 && p.getNombrePlaneacion().equals("Plan1"))
+        if((float)p[3]==100000 && (String)p[0]=="Plan1")
             s = "Planeacion Encontrada";
         assert(s.equals("Planeacion Encontrada"));
     }

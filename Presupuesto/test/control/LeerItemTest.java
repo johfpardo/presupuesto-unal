@@ -33,8 +33,8 @@ public class LeerItemTest {
     public static void setUpClass() {
         Sistema.msistema.setPresupuesto(new ArrayList<Presupuesto>());
         controlS.crearPresupuesto(new String[] {"Plan1","1000000"});
-        controlS.crearRubro(new String[] {"Estimulo a Estudiantes","300000"},"Plan1");
-        controlS.crearItem(new String []{"Viaje Ricardo a España","50000"}, "Plan1", 0);
+        controlS.crearRubro(new String[] {"Viajes","300000"},"Plan1");
+        controlS.crearItem(new String []{"Viaje Ricardo a España","50000"}, "Plan1", "Viajes");
     }
     
     @AfterClass
@@ -61,13 +61,13 @@ public class LeerItemTest {
               i.setNombreItem("Viaje Ricardo a España");
               i.setId(1);
               items.add(i);      
-              r.setNombreRubro("Conferencias");
+              r.setNombreRubro("Viajes");
               r.setId(1);
-              r.setItem(items);
+              r.setItems(items);
               
           
-              assertEquals(cItem.getItem(r,"dsdfsfs"),null); 
-              assertEquals(cItem.getItem(r, 2),null);
+              assertEquals(cItem.getItem("Plan1","Viajes","dsdfsfs"),null); 
+              assertEquals(cItem.getItem(2),null);
         }
     
    @Test
@@ -83,10 +83,10 @@ public class LeerItemTest {
            items.add(i);      
            r.setNombreRubro("Conferencias");
            r.setId(1);
-           r.setItem(items);
+           r.setItems(items);
            
-           assertEquals(cItem.getItem(r,"Viaje Ricardo a España"),i); 
-              assertEquals(cItem.getItem(r,1),i);
+           assertEquals(cItem.getItem(1),i); 
+              assertEquals(cItem.getItem("Plan1","Viajes","Viaje Ricardo a España"),i);
            
            
        //assert(controlS.getItem("Plan1",0,"Viaje Ricardo a España").getNombreItem().equals("Viaje Ricardo a España"));

@@ -38,10 +38,10 @@ public class DeleteRubroTest {
            csistema.crearPresupuesto(datos);
            String datos1[] = {"Rubro 1","100"};
            csistema.crearRubro(datos1,"Planeacion 1");
-           Presupuesto p1 = new Presupuesto();
-           p1 = csistema.getPresupuesto("Planeacion 1");
-           int id = csistema.getControlRubro().getRubro(p1, "Rubro1").getId();
-           String s1 = csistema.eliminarRubro("Planeacion 2", id);
+           Object[] presupuesto;
+           presupuesto = csistema.getPresupuesto("Planeacion 1");
+           long id = csistema.getControlRubro().getRubro((String) presupuesto[0], "Rubro1").getId();
+           String s1 = csistema.eliminarRubro("Planeacion 2","Rubro 1") ;
            assertEquals(s1,"Eliminacion fallida");
                    
         }
@@ -56,10 +56,10 @@ public class DeleteRubroTest {
               r.setNombreRubro("Conferencias");
               r.setId(1);
               rubros.add(r);
-              p.setRubro(rubros);
+              p.setRubros(rubros);
           
               
-              assertEquals(csistema.eliminarRubro(p.getNombrePlaneacion(), 2),"Eliminacion fallida");
+              assertEquals(csistema.eliminarRubro(p.getNombrePlaneacion(), (String) r.toObjectArray()[0]),"Eliminacion fallida");
         }
        
   /*     @Test
@@ -113,19 +113,19 @@ public class DeleteRubroTest {
               rubros.add(b);
               rubros.add(c);
              
-             p.setRubro(rubros);
+             p.setRubros(rubros);
              presupuestos.add(p);
              Sistema.msistema.setPresupuesto(presupuestos);
-             assertEquals(cRubro.getRubro(p, "Mantenimiento de equipos"),a);
-             assertEquals(cRubro.getRubro(p, 1),a);
-             assertEquals(cRubro.getRubro(p, "Viajes"),b);
-             assertEquals(cRubro.getRubro(p, 2),b);
-             assertEquals(cRubro.getRubro(p, "Conferencias"),c);
-             assertEquals(cRubro.getRubro(p, 3),c);
+             assertEquals(cRubro.getRubro("Planeacion 1", "Mantenimiento de equipos"),a);
+             assertEquals(cRubro.getRubro(1),a);
+             assertEquals(cRubro.getRubro("Planeacion 1", "Viajes"),b);
+             assertEquals(cRubro.getRubro(2),b);
+             assertEquals(cRubro.getRubro("Planeacion 1","Conferencias"),c);
+             assertEquals(cRubro.getRubro(3),c);
              
-             assertEquals(cRubro.eliminarRubro(p, 1),"Rubro eliminado satisfactoriamente");
-             assertEquals(cRubro.eliminarRubro(p, 2),"Rubro eliminado satisfactoriamente");
-             assertEquals(cRubro.eliminarRubro(p, 3),"Rubro eliminado satisfactoriamente");
+             assertEquals(cRubro.eliminarRubro("Planeacion 1", "Mantenimiento de equipos"),"Rubro eliminado satisfactoriamente");
+             assertEquals(cRubro.eliminarRubro("Planeacion 1", "Mantenimiento de equipos"),"Rubro eliminado satisfactoriamente");
+             assertEquals(cRubro.eliminarRubro("Planeacion 1", "Mantenimiento de equipos"),"Rubro eliminado satisfactoriamente");
               
        }
        

@@ -53,21 +53,23 @@ public class TransferTest {
     @Test
     public void testFondosInsuficientes() {
         
-        Rubro fuente = control.getPresupuesto("Plan1").getRubro().get(0);
-        Rubro destino = control.getPresupuesto("Plan1").getRubro().get(1);
+ 
         
-        assertEquals(control.transferirFondos(control.getPresupuesto("Plan1"), fuente, destino, 900),
+        assertEquals(control.transferirFondos((String) control.getPresupuesto("Plan1")[0], "fuente", "destino", 900),
                 "Fondos insuficientes para realizar la transferencia");
         
     }
     
     @Test
     public void testTodoCorrecto() {
+      
         
-        Rubro fuente = control.getPresupuesto("Plan1").getRubro().get(0);
-        Rubro destino = control.getPresupuesto("Plan1").getRubro().get(1);
+       
         
-        assertEquals(control.transferirFondos(control.getPresupuesto("Plan1"), fuente, destino, 500),
-                "Se transfirieron 500.0 de " + fuente.getNombreRubro() + " a " + destino.getNombreRubro());
+        //assertEquals(control.transferirFondos(control.getPresupuesto("Plan1"), fuente, destino, 500),
+          //      "Se transfirieron 500.0 de " + fuente.getNombreRubro() + " a " + destino.getNombreRubro());
+            assertEquals(control.transferirFondos("Plan1","fuente","destino", 500),
+                    "Se transfirieron " + "500.0" + " de " + "fuente" + " a " + "destino");
     }
+    
 }

@@ -38,8 +38,8 @@ public class eliminarItemTest {
         controlS.crearRubro(new String[] {"Viaticos y Gastos de Viaje","200000"},"Plan1");
         controlS.crearRubro(new String[] {"Materiales y Suministros","500000"},"Plan1");
         //Creando Items en el sistema
-        controlS.crearItem(new String []{"Viaje Ricardo a España","50000"}, "Plan1", 1);
-        controlS.crearItem(new String [] {"Premio por desempeño","100000"},"Plan1",0);
+        controlS.crearItem(new String []{"Viaje Ricardo a España","50000","25-12-2012"}, "Plan1","Viaticos y Gastos de Viaje" );
+        controlS.crearItem(new String [] {"Premio por desempeño","100000","25-12-2012"},"Plan1","Estimulo a Estudiantes Auxiliares");
     }
     
     @AfterClass
@@ -69,9 +69,9 @@ public class eliminarItemTest {
            items.add(i);      
            r.setNombreRubro("Conferencias");
            r.setId(1);
-           r.setItem(items);
+           r.setItems(items);
            
-           assertEquals(cItem.eliminarItem(2, r),"Item inexistente, eliminacion no satisfactoria");
+           assertEquals(cItem.eliminarItem(2),"Item inexistente, eliminacion no satisfactoria");
         //Con un id inexistente se prueba el procedimiento
        // assert(controlS.eliminarItem("Plan1",0,3).equals("Item inexistente, eliminacion no satisfactoria")); 
     }
@@ -89,9 +89,9 @@ public class eliminarItemTest {
            items.add(i);      
            r.setNombreRubro("Conferencias");
            r.setId(1);
-           r.setItem(items);
+           r.setItems(items);
            
-            assertEquals(cItem.eliminarItem(1, r),"Item eliminado satisfactoriamente");
+            assertEquals(cItem.eliminarItem(2),"Item eliminado satisfactoriamente");
         //Se elimina un item existente
         
     }

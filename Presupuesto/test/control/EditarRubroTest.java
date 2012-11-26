@@ -28,7 +28,7 @@ public class EditarRubroTest {
         Sistema.msistema.setPresupuesto(new ArrayList<Presupuesto>());
         csistema.crearPresupuesto(new String[] {"planeacion de prueba","50000"});  
         csistema.crearRubro(new String[] {"abcde","2000"}, "planeacion de prueba");
-        csistema.crearItem(new String[]{"item de prueba","1500"}, "planeacion de prueba", 0);
+        csistema.crearItem(new String[]{"item de prueba","1500","25-11-2012"}, "planeacion de prueba", "abcde");
     }
     
     @AfterClass
@@ -44,36 +44,36 @@ public class EditarRubroTest {
     }
     
     @Test
-    public void testIdNoExiste(){
-        String r1=csistema.editarRubro("planeacion de prueba",-1,new String[] {"abcd","1000"});
+    public void testRubroExiste(){
+        String r1=csistema.editarRubro("planeacion de prueba","nnnnnnn",new String[] {"abcd","1000"});
         assertEquals(r1,"Edición fallida");
     }
     
     @Test
     public void testLongitudNombre(){
-        String r1=csistema.editarRubro("planeacion de prueba",0,new String[] {"abcd","1000"});
+        String r1=csistema.editarRubro("planeacion de prueba","abcde",new String[] {"abcd","1000"});
         assertEquals(r1,"Nombre inválido");
-        String r2=csistema.editarRubro("planeacion de prueba",0,new String[] {"abcdefghijabcdefghijabcdefghij","1000"});
+        String r2=csistema.editarRubro("planeacion de prueba","abdce",new String[] {"abcdefghijabcdefghijabcdefghij","1000"});
         assertEquals(r2,"Nombre inválido");
     }
     
     @Test 
     public void testValidezDinero1(){
-        String r1=csistema.editarRubro("planeacion de prueba",0,new String[] {"abcdef","-20"});
+        String r1=csistema.editarRubro("planeacion de prueba","abdce",new String[] {"abcdef","-20"});
         assertEquals(r1,"Monto de dinero inválido");
-        String r2=csistema.editarRubro("planeacion de prueba",0,new String[] {"abcdef","1000"});
+        String r2=csistema.editarRubro("planeacion de prueba","abdce",new String[] {"abcdef","1000"});
         assertEquals(r2,"Monto de dinero inválido");
     }
     
     @Test 
     public void testValidezDinero2(){
-        String r1=csistema.editarRubro("planeacion de prueba",0,new String[] {"abcdef","50001"});
+        String r1=csistema.editarRubro("planeacion de prueba","abdce",new String[] {"abcdef","50001"});
         assertEquals(r1,"Monto de dinero inválido");
     }
     
     @Test
     public void testRubroEditado(){
-        String r1=csistema.editarRubro("planeacion de prueba",0,new String[] {"abcdef","5000"});
+        String r1=csistema.editarRubro("planeacion de prueba","abdce",new String[] {"abcdef","5000"});
         assertEquals(r1,"Rubro editado satisfactoriamente");
     }
 }

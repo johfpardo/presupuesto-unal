@@ -32,8 +32,8 @@ public class ModificarItemTest {
         Sistema.msistema.setPresupuesto(new ArrayList<Presupuesto>());
         control.crearPresupuesto(new String[] {"Plan1","1000000"});
         control.crearRubro(new String[] {"Materiales y Suministros","500000"},"Plan1");
-        control.crearItem(new String [] {"Cable coaxial","85000"}, "Plan1", 0);
-        control.crearItem(new String [] {"Hojas tamaño carta","25000"}, "Plan1", 0);
+        control.crearItem(new String [] {"Cable coaxial","85000"}, "Plan1", "Materiales y Suministros");
+        control.crearItem(new String [] {"Hojas tamaño carta","25000"}, "Plan1", "Materiales y Suministros");
                 
     }
     
@@ -55,9 +55,9 @@ public class ModificarItemTest {
     public void changeNameTest() {
         
         String datos[] = {"Item","10000"};
-        assertEquals(control.editarItem("Plan1",0,0,datos), "Nombre inválido");
+        assertEquals(control.editarItem("Plan1","Materiales y Suministros",0,datos), "Nombre inválido");
         String datos1[] = {"Item relacionado con la reparación de laboratorios","200000"};
-        assertEquals(control.editarItem("Plan1",0,0,datos1), "Nombre inválido");
+        assertEquals(control.editarItem("Plan1","Materiales y Suministros",0,datos1), "Nombre inválido");
         String datos2[] = {"Instalación de cable coaxial","85000"};
        
     
@@ -66,14 +66,14 @@ public class ModificarItemTest {
     @Test
     public void changeValueTest() {
         String datos[] = {"Hojas tamaño carta","550000"};
-        assertEquals(control.editarItem("Plan1",0,1,datos), "Monto de dinero inválido");
+        assertEquals(control.editarItem("Plan1","Materiales y Suministros",1,datos), "Monto de dinero inválido");
         String datos1[] = {"Hojas tamaño carta","-30000"};
-        assertEquals(control.editarItem("Plan1",0,1,datos1), "Monto de dinero inválido");
+        assertEquals(control.editarItem("Plan1","Materiales y Suministros",1,datos1), "Monto de dinero inválido");
         String datos2[] = {"Hojas tamaño carta","460000"};
-        assertEquals(control.editarItem("Plan1",0,1,datos2), "Monto de dinero inválido");
+        assertEquals(control.editarItem("Plan1","Materiales y Suministros",1,datos2), "Monto de dinero inválido");
                 
         String datos3[] = {"Hojas tamaño carta","27000"};
-        assertEquals(control.editarItem("Plan1",0,1,datos3), "Modificación del Item Satisfactoria");
+        assertEquals(control.editarItem("Plan1","Materiales y Suministros",1,datos3), "Modificación del Item Satisfactoria");
     
     }
     
@@ -81,7 +81,7 @@ public class ModificarItemTest {
     public void allRightChangeTest() {
         
         String data[] = {"Instalación de cable coaxial","97000"};
-        assertEquals(control.editarItem("Plan1",0,1,data), "Modificación del Item Satisfactoria");
+        assertEquals(control.editarItem("Plan1","Materiales y Suministros",1,data), "Modificación del Item Satisfactoria");
     
     }
     
@@ -89,7 +89,7 @@ public class ModificarItemTest {
     public void inexistentItemChangeTest() {
         
         String data[] = {"Revisión de material escrito","96000"};
-        assertEquals(control.editarItem("Plan1",0,2,data), "Edición fallida");
+        assertEquals(control.editarItem("Plan1","Materiales y Suministros",2,data), "Edición fallida");
            
     }
 

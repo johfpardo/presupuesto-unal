@@ -41,10 +41,10 @@ public class LeerRubroTest {
            csistema.crearPresupuesto(datos);
            String datos1[] = {"Rubro 1","100"};
            csistema.crearRubro(datos1,"Planeacion 1");
-           Presupuesto p1 = new Presupuesto();
+           Object[] p1;
            p1 = csistema.getPresupuesto("Planeacion 1");
-           int id = csistema.getControlRubro().getRubro(p1, "Rubro1").getId();
-           String s1 = csistema.eliminarRubro("Planeacion 2", id);
+           long id = csistema.getControlRubro().getRubro((String) p1[0], "Rubro1").getId();
+           String s1 = csistema.eliminarRubro("Planeacion 2", "Rubro 1");
            assertEquals(s1,"Eliminacion fallida");
                    
           /* ArrayList<Presupuesto>  presupuestos = new ArrayList<Presupuesto>(); 
@@ -69,10 +69,10 @@ public class LeerRubroTest {
               r.setNombreRubro("Conferencias");
               r.setId(1);
               rubros.add(r);
-              p.setRubro(rubros);
+              p.setRubros(rubros);
           
-              assertEquals(cRubro.getRubro(p, "dsdfsfs"),null); 
-              assertEquals(cRubro.getRubro(p, 2),null);
+              assertEquals(cRubro.getRubro((String)csistema.getPresupuesto("Planeacion 1")[0], "dsdfsfs"),null); 
+              assertEquals(cRubro.getRubro(2),null);
         }
     
        
@@ -103,15 +103,15 @@ public class LeerRubroTest {
               rubros.add(b);
               rubros.add(c);
              
-             p.setRubro(rubros);
+             p.setRubros(rubros);
              presupuestos.add(p);
              Sistema.msistema.setPresupuesto(presupuestos);
-             assertEquals(cRubro.getRubro(p, "Mantenimiento de equipos"),a);
-             assertEquals(cRubro.getRubro(p, 1),a);
-             assertEquals(cRubro.getRubro(p, "Viajes"),b);
-             assertEquals(cRubro.getRubro(p, 2),b);
-             assertEquals(cRubro.getRubro(p, "Conferencias"),c);
-             assertEquals(cRubro.getRubro(p, 3),c);
+             assertEquals(cRubro.getRubro((String) csistema.getPresupuesto("Planeacion 1")[0], "Mantenimiento de equipos"),a);
+             assertEquals(cRubro.getRubro(1),a);
+             assertEquals(cRubro.getRubro((String) csistema.getPresupuesto("Planeacion 1")[0], "Viajes"),b);
+             assertEquals(cRubro.getRubro(2),b);
+             assertEquals(cRubro.getRubro((String) csistema.getPresupuesto("Planeacion 1")[0], "Conferencias"),c);
+             assertEquals(cRubro.getRubro(3),c);
              
            
               
